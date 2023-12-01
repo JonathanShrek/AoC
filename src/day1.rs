@@ -3,32 +3,27 @@
 // }
 
 #[aoc(day1, part1)]
-pub fn solve_part1(input: &str) -> i32 {
-  let mut answer: i32 = 0;
+pub fn solve_part1(input: &str) -> u32 {
+  let sum: u32 = input
+    .lines()
+    .map(|line| {
+      let first = line
+        .chars()
+        .find(|d| d.is_ascii_digit())
+        .expect("first digit found");
+      let last = line
+        .chars()
+        .filter(|d| d.is_ascii_digit())
+        .last()
+        .expect("last digit found");
 
-  for line in input.lines() {
-    let mut numeric_string = String::new();
+      format!("{first}{last}")
+        .parse::<u32>()
+        .expect("digits can be converted to u32")
+    })
+    .sum();
 
-    for c in line.chars() {
-      if c.is_digit(10) {
-        if numeric_string.len() == 2 {
-          numeric_string.pop();
-        }
-        numeric_string.push(c);
-      }
-    }
-
-    if numeric_string.len() == 1 {
-      let first_char = numeric_string.chars().next().unwrap();
-      numeric_string.push(first_char);
-    }
-
-    if let Ok(int) = numeric_string.parse::<i32>() {
-      answer = answer + int;
-    }
-  }
-
-  answer
+  sum
 }
 
 #[aoc(day1, part2)]
