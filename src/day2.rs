@@ -11,6 +11,26 @@ pub struct Round {
   green: u32,
 }
 
+impl Game {
+  pub fn new(id: u32) -> Self {
+    Self {
+      id,
+      rounds: Vec::new(),
+    }
+  }
+
+  pub fn add_round(&mut self, red: u32, blue: u32, green: u32) {
+    let round = Round { red, blue, green };
+    self.rounds.push(round);
+  }
+
+  pub fn print_rounds(&self) {
+    for round in &self.rounds {
+      println!("id {}: {:?}", &self.id, round);
+    }
+  }
+}
+
 #[aoc_generator(day2)]
 pub fn input_generator(input: &str) -> Vec<Game> {
   let mut games: Vec<Game> = Vec::new();
@@ -64,26 +84,6 @@ pub fn input_generator(input: &str) -> Vec<Game> {
     });
 
     games
-}
-
-impl Game {
-  pub fn new(id: u32) -> Self {
-    Self {
-      id,
-      rounds: Vec::new(),
-    }
-  }
-
-  pub fn add_round(&mut self, red: u32, blue: u32, green: u32) {
-    let round = Round { red, blue, green };
-    self.rounds.push(round);
-  }
-
-  pub fn print_rounds(&self) {
-    for round in &self.rounds {
-      println!("id {}: {:?}", &self.id, round);
-    }
-  }
 }
 
 #[aoc(day2, part1)]
